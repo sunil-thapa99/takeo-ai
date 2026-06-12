@@ -57,4 +57,56 @@ WHERE customer_id = 12345
 GROUP BY product_category
 ORDER BY total_spent DESC;
 
+<!-- June 11: Healthcare Use Case -->
+CREATE EXTERNAL TABLE medical_visits_ext (
+    visit_id INT,
+    patient_id INT,
+    region STRING,
+    visit_date STRING,
+    diagnosis STRING,
+    treatment STRING  
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+LOCATION '/data/test/buss_case';
 
+
+CREATE EXTERNAL TABLE prescriptions_ext (
+    prescription_id INT,
+    visit_id INT,
+    patient_age INT,
+    patient_gender STRING,
+    drug_name STRING,
+    dosage STRING,
+    region STRING,
+    prescription_date STRING
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+LOCATION '/data/test/buss_case';
+
+
+CREATE TABLE medical_visits (
+    visit_id INT,
+    patient_id INT,
+    diagnosis STRING,
+    treatment STRING
+)
+PARTITIONED BY (visit_date STRING, region STRING);
+
+set hive.exec.dynamic.partition.mode=nonstrict;
+insert overwrite table medical_visits partition(visit_date,region) 
+select visit_id, patient_id, diagnosis, treatment, visit_date, region
+from medical_visits_ext;
+
+CREATE TABLE prescriptions (
+    prescription_id INT,
+    visit_id INT,
+    patient_age INT,
+    patient_gender STRING,
+    drug_name STRING,
+    dosage STRING
+)
+PARTITIONED BY (prescription_date STRING, region STRING);
+
+insert overwrite table prescriptions partition(prescription_date,region) 
+select prescription_id, visit_id, patient_age, patient_gender, drug_name, dosage, prescription_date, region
+from prescriptions_ext;
