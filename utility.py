@@ -1,6 +1,5 @@
-from pyspark.sql.functions import col, lit
+from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StructField
-from pyspark.sql import functions as F
 
 # Select column based on indexing
 def select_col(df, fields):
@@ -14,6 +13,14 @@ def select_col(df, fields):
 
     '''
     return df.select(*fields)
+
+# Count number of rows
+def count_rows(df):
+    return df.count()
+
+# Count unique rows
+def count_distinct_rows(df):
+    return df.distinct().count()
 
 # Transform column type
 def transform_col(df, col_name, new_col_name, transform):
@@ -68,12 +75,12 @@ def agg_function(df, group_cols, agg_col, metrics):
         group_cols = [group_cols]
 
     agg_map = {
-        "count": F.count("*").alias("count"),
-        "min": F.min(agg_col).alias(f"min_{agg_col}"),
-        "max": F.max(agg_col).alias(f"max_{agg_col}"),
-        "avg": F.avg(agg_col).alias(f"avg_{agg_col}"),
-        "mean": F.mean(agg_col).alias(f"mean_{agg_col}"),
-        "sum": F.sum(agg_col).alias(f"sum_{agg_col}")
+        "count": count("*").alias("count"),
+        "min": min(agg_col).alias(f"min_{agg_col}"),
+        "max": max(agg_col).alias(f"max_{agg_col}"),
+        "avg": avg(agg_col).alias(f"avg_{agg_col}"),
+        "mean": mean(agg_col).alias(f"mean_{agg_col}"),
+        "sum": sum(agg_col).alias(f"sum_{agg_col}")
     }
     exprs = [agg_map[m] for m in metrics if m in agg_map]
     return df.groupBy(*group_cols).agg(*exprs)
@@ -82,13 +89,13 @@ def agg_function(df, group_cols, agg_col, metrics):
 def filter_col(df, conditions):
     # conditions = [ ("salary", ">", 5000), ("salary", "<", 15000)]
     operators = {
-        "=": lambda c, v: F.col(c) == v,
-        "==": lambda c, v: F.col(c) == v,
-        "!=": lambda c, v: F.col(c) != v,
-        ">": lambda c, v: F.col(c) > v,
-        "<": lambda c, v: F.col(c) < v,
-        ">=": lambda c, v: F.col(c) >= v,
-        "<=": lambda c, v: F.col(c) <= v,
+        "=": lambda c, v: col(c) == v,
+        "==": lambda c, v: col(c) == v,
+        "!=": lambda c, v: col(c) != v,
+        ">": lambda c, v: col(c) > v,
+        "<": lambda c, v: col(c) < v,
+        ">=": lambda c, v: col(c) >= v,
+        "<=": lambda c, v: col(c) <= v,
     }
 
     condition = None
@@ -101,3 +108,41 @@ def filter_col(df, conditions):
             condition = condition & expr  # AND
 
     return df.where(condition)
+
+
+# Assigns 0 or 1 based on column value match
+def assign_flag_column(df, column_name, compare_value, new_column):
+    return df.select("*", when(col(column_name) != compare_value, 1).otherwise(0).alias(new_column))
+
+# Check if row contains string for a column
+def check_contain(df, column_name, compare_value, new_column):
+    return df.select("*",upper(col(column_name)).contains(compare_value).alias(new_column))
+
+# Get substring based on start and end position
+def substring_col(df, column_name, first_pos, second_pos, title):
+    return df.select(col(column_name).substr(first_pos, second_pos).alias(title))
+
+# Show and count all entries in columns ["", ""]
+def show_and_count_columns(df, columns):
+    result = df.select(*columns)
+    result.show(truncate=False)
+    count_rows(result)
+    return result
+
+
+# Get startwith
+def start_with(df, column_name, value, cols):
+    return df.filter(col(column_name).startswith(value)).select(*cols)
+
+# Get endswith
+def end_with(df, column_name, value, cols):
+    return df.filter(col(column_name).endswith(value)).select(*cols)
+
+# drop columns
+def drop_cols(df, cols):
+    return df.drop(*cols)
+
+
+# Group By
+def group_and_count(df, group_column, alias_val):
+    return df.groupBy(group_column).agg(count("*").alias(alias_val))
