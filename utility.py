@@ -146,3 +146,14 @@ def drop_cols(df, cols):
 # Group By
 def group_and_count(df, group_column, alias_val):
     return df.groupBy(group_column).agg(count("*").alias(alias_val))
+
+# Read file from any format
+def read(spark, format_type, file_path, header=True, infer_schema=True, struct_col=False, delimiter=','):
+    if infer_schema:
+        return spark.read.format(format_type).options(header=header, inferSchema=infer_schema, delimiter=delimiter).load(file_path)
+    else:
+        return spark.read.format(format_type).options(header=header, delimiter=delimiter).load(file_path)
+
+# Write into any format
+def write(df, format_type, dir_path):
+    df.write.format(format_type).mode('overwrite').save(dir_path)
