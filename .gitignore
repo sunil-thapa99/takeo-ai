@@ -1,2 +1,4 @@
 *.docx
 books.json
+.DS_Store
+*.pyc
