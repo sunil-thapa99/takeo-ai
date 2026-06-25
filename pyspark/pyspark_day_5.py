@@ -1,3 +1,4 @@
+import os
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StringType, IntegerType, DoubleType
 
@@ -6,7 +7,8 @@ from utility import *
 if __name__ == '__main__':
     spark: SparkSession = SparkSession.builder.master("local[1]").appName("bootcamp.com").getOrCreate()
 
-    df = spark.read.json('file:///home/takeo/pycharmproject/books.json')
+    books_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'books.json')
+    df = spark.read.json(books_path)
     print(f"Total rows: {count_rows(df)}")
     print(f"Total distinct rows: {count_distinct_rows(df)}")
     df_drop_dup = drop_duplicates(df)
