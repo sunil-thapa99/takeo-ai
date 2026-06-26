@@ -11,7 +11,7 @@ def bronze_ingestion(spark, csv_path, table_name):
         :return: table name: String
     """
     df = (spark.read.option("header", "true").csv(csv_path))
-    df.write.mode("overwrite").format("parquet").saveAsTable(f"bronze_{table_name}")
+    df.write.mode("overwrite").format("parquet").saveAsTable(f"iphone_analytics.bronze_{table_name}")
     return f"bronze_{table_name}"
 
 def silver_sales_transform_partition(spark, df_name, transformation_column, store_table_name, partition_column, file_format):
@@ -30,7 +30,7 @@ def silver_sales_transform_partition(spark, df_name, transformation_column, stor
             df = df.withColumn(key, to_date(col(key)))
         else:
             df = df.withColumn(key, col(key).cast(value))
-    df.write.mode("overwrite").partitionBy(partition_column).format(file_format).saveAsTable(store_table_name)
+    df.write.mode("overwrite").partitionBy(partition_column).format(file_format).saveAsTable(f"iphone_analytics.{store_table_name}")
     return store_table_name
 
 
@@ -50,6 +50,6 @@ def silver_sales_transform(spark, df_name, transformation_column, store_table_na
             df = df.withColumn(key, to_date(col(key)))
         else:
             df = df.withColumn(key, col(key).cast(value))
-    df.write.mode("overwrite").format(file_format).saveAsTable(store_table_name)
+    df.write.mode("overwrite").format(file_format).saveAsTable(f"iphone_analytics.{store_table_name}")
     return store_table_name
 

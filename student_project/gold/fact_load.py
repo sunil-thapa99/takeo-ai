@@ -23,7 +23,7 @@ def load_fact_sales(spark):
         .mode("overwrite")
         .partitionBy("date_key")
         .format("parquet")
-        .saveAsTable("fact_sales")
+        .saveAsTable("iphone_analytics.fact_sales")
     )
 
 
@@ -32,18 +32,18 @@ def load_fact_customer(spark):
     fact_df = (
         customers.select("customer_id", "customer_name", "city", "state")
     )
-    fact_df.write.mode("overwrite").format("parquet").saveAsTable("fact_customers")
+    fact_df.write.mode("overwrite").format("parquet").saveAsTable("iphone_analytics.fact_customers")
 
 def load_fact_store(spark):
     stores = spark.table("silver_stores")
     fact_df = (
         stores.select("store_id", "store_name", "city", "state")
     )
-    fact_df.write.mode("overwrite").format("parquet").saveAsTable("fact_stores")
+    fact_df.write.mode("overwrite").format("parquet").saveAsTable("iphone_analytics.fact_stores")
 
 def load_fact_product(spark):
     products = spark.table("silver_products")
     fact_df = (
         products.select("product_id", "product_name", "category", "unit_price")
     )
-    fact_df.write.mode("overwrite").format("parquet").save("fact_products")
+    fact_df.write.mode("overwrite").format("parquet").saveAsTable("iphone_analytics.fact_products")
