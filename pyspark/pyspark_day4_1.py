@@ -4,7 +4,7 @@ from pyspark.sql.types import StringType, IntegerType, DoubleType
 from utility import *
 
 if __name__ == '__main__':
-    spark: SparkSession = SparkSession.builder.master("local[1]").appName("bootcamp.com").getOrCreate()
+    spark: SparkSession = SparkSession.builder.master("local[1]").appName("bootcamp.com").enableHiveSupport().getOrCreate()
 
     data = [
         ("Smith",23,5.3 ),
