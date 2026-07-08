@@ -1,0 +1,10 @@
+1|Toyota Park|Bridgeview|IL|
+2|Columbus Crew Stadium|Columbus|OH|
+3|RFK Stadium|Washington|DC|
+4|CommunityAmerica Ballpark|Kansas City|KS|
+5|Gillette Stadium|Foxborough|MA|
+6|New York Giants Stadium|East Rutherford|NJ|
+7|BMO Field|Toronto|ON|
+8|The Home Depot Center|Carson|CA|
+9|Dick's Sporting Goods Park|Commerce City|CO|
+10|Pizza Hut Park|Frisco|TX|
