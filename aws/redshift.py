@@ -24,7 +24,7 @@ https://repo1.maven.org/maven2/
 pyspark --packages org.apache.hadoop:hadoop-aws:3.3.4
 hadoop_conf = spark._jsc.hadoopConfiguration()
 hadoop_conf.set("fs.s3a.access.key", "ACCESS_KEY")
-hadoop_conf.set("fs.s3a.secret.key", "SECRET_KEY")")
+hadoop_conf.set("fs.s3a.secret.key", "SECRET_KEY")
 hadoop_conf.set("fs.s3a.endpoint", "s3.amazonaws.com")
 
 df = spark.read.csv("s3a://glue-bucket-st/bootcamp/customers/customers.csv", header=True, inferSchema=True)
