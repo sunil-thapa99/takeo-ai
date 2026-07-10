@@ -1,17 +1,41 @@
 from pyspark.sql import SparkSession, functions as F
 
-BUCKET = "aws-takeo-covid-project"
-BRONZE = f"s3://{BUCKET}/covid/bronze"
-SILVER = f"s3://{BUCKET}/covid/silver"
+import os
+import subprocess
+import sys
+from pathlib import Path
+from pyspark.sql import SparkSession
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "python-dotenv"])
+
+env_path = Path(__file__).resolve().parent.parent / ".env"
+
+load_dotenv(env_path)
+
+ACCESS_KEY = os.getenv("ACCESS_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
+USERNAME = os.getenv("USERNAME")
+PASSWORD = os.getenv("PASSWORD")
 
 spark = SparkSession.builder.appName("covid-minimal-silver").getOrCreate()
+hadoop_conf = spark._jsc.hadoopConfiguration()
+hadoop_conf.set("fs.s3a.access.key", ACCESS_KEY)
+hadoop_conf.set("fs.s3a.secret.key", SECRET_KEY)
+hadoop_conf.set("fs.s3a.endpoint", "s3.amazonaws.com")
+
+BUCKET = "aws-takeo-covid-project"
+BRONZE = f"s3a://{BUCKET}/covid/bronze"
+SILVER = f"s3a://{BUCKET}/covid/silver"
+
 # Helpers
 upper_trim = lambda c: F.upper(F.trim(F.col(c)))
 to_date = lambda c: F.to_date(F.col(c).cast("string"))
 
 # --- Lookups ---
 states = (spark.read.option("header", True).csv(f"{BRONZE}/static/states_abv.csv")
-          .select(upper_trim("abbr").alias("state_code"), F.initcap("name").alias("state_name")))
+          .select(upper_trim("Abbreviation").alias("state_code"), F.initcap("State").alias("state_name")))
 
 # --- Cases (NYT state file: date,state,cases,deaths or JHU state-level variant) ---
 cases_raw = spark.read.option("header", True).csv(f"{BRONZE}/nytimes/us_states.csv")
@@ -34,3 +58,5 @@ cases_std = (cases_raw
 (cases_std.write.mode("overwrite")
   .partitionBy("state_code", "year", "month", "day")
   .parquet(f"{SILVER}/cases_standardized"))
+
+# spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4 silver_etl.py
