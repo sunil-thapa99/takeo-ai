@@ -39,7 +39,6 @@ to_date = lambda c: F.to_date(F.col(c).cast("string"))
 states = (spark.read.option("header", True).csv(f"{BRONZE}/static/states_abv.csv")
           .select(upper_trim("Abbreviation").alias("state_code"), F.initcap("State").alias("state_name")))
 
-'''
 # --- Cases (NYT state file: date,state,cases,deaths or JHU state-level variant) ---
 cases_raw = spark.read.option("header", True).csv(f"{BRONZE}/nytimes/us_states.csv")
 
@@ -61,7 +60,7 @@ cases_std = (cases_raw
 (cases_std.write.mode("overwrite")
   .partitionBy("state_code", "year", "month", "day")
   .parquet(f"{SILVER}/cases_standardized"))
-'''
+
 
 # --- Testing (COVID Tracking: date(int yyyymmdd), state(code), positive, negative, totalTestResults) ---
 tests_raw = spark.read.option("header", True).csv(f"{BRONZE}/covid_tracking/states_daily.csv")
