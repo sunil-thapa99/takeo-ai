@@ -79,9 +79,10 @@ tests_std = (tests_raw
   .select("full_date", "state_code", "state_name", "tests_total_cum", "tests_pos_cum", "tests_neg_cum", "year", "month", "day")
   .dropna(subset=["full_date", "state_code"])
 )
+print("-"*20, " Writing to hive ", "-"*20)
 
 (tests_std.write.mode("overwrite")
   .partitionBy("state_code", "year", "month", "day")
-  .parquet(f"{SILVER}/testing_standardized"))
+  .parquet("hdfs:///home/takeo/testing_standardized"))
 
 print("Silver complete.")

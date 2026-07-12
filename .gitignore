@@ -2,3 +2,4 @@ books.json
 .DS_Store
 *.pyc
 aws/.env
+aws/project/testing_standardized
