@@ -15,4 +15,15 @@ id, name
 SQL where clause is 'where likes>10 AND (by = 'bootcamp' OR title = 'MongoDB Overview')'
 ``` db.mycol.find({"likes": {$gt:10}, $or: [{"by": "bootcamp"}, {"title": "MongoDB Overview"}]}).pretty() ```
 
+``` count(*) group by _id ```
+db.mycol.aggregate([{$group : {_id : "$by", sumofLikes : {$sum : 1}}}])
 
+db.mycol.aggregate([{$group : {_id : "$by", sumofLikes : {$sum : "$likes"}}}])
+
+db.mycol.aggregate([{$group : {_id : "$by", minLikes : {$min : "$likes"}}}])
+
+Create Index
+db.mycol.createIndex({"title": 1}) -- 1 means create index in ascending, -1 is descending
+
+Drop index
+db.mycol.dropIndex({"title": 1})
