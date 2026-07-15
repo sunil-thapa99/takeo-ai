@@ -11,3 +11,8 @@ id, name
 - select * from emp where id not in (1, 2) => db.emp.find({id: {$nin: [1, 2]}})
 - select * from emp where id = 1 and name = 'e1' => db.emp.find({$and: [  {"id": 1}, {"name": "e1"}] }, {})
 - select * from emp where id = 1 or name = 'e1' => db.emp.find({$or: [  {"id": 1}, {"name": "e1"}] }, {})
+
+SQL where clause is 'where likes>10 AND (by = 'bootcamp' OR title = 'MongoDB Overview')'
+``` db.mycol.find({"likes": {$gt:10}, $or: [{"by": "bootcamp"}, {"title": "MongoDB Overview"}]}).pretty() ```
+
+
