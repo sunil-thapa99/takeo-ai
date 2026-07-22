@@ -19,3 +19,4 @@ VALUES (1, 'abc');
 SELECT * FROM test.emp1
 WHERE [emp id]=1;
 
+=
