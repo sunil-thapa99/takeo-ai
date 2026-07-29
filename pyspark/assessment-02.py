@@ -10,7 +10,7 @@ def q1(spark):
         StructField("dept_id", IntegerType(), True),
         StructField("salary", LongType(), True),
     ])
-    df = spark.read.option("header", "false") .schema(cols).csv("/data/test/text/department.txt")
+    df = spark.read.option("header", "false").schema(cols).csv("/data/test/text/department.txt")
     df_double = df.withColumn("doubleSalary", col("salary")*2)
     selected_col = df_double.select("dept_name", "salary", "doubleSalary")
     selected_col.write.mode("overwrite").parquet("/data/test/text/department_double.parquet")
