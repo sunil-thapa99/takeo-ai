@@ -1,0 +1,16 @@
+﻿Issue Type,Issue key,Issue id,Summary,Assignee,Assignee Id,Reporter,Reporter Id,Priority,Status,Resolution,Created,Updated,Due date
+Epic,KAN-6,10014,Project Documentation,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,In Review,,04/Aug/26 7:31 PM,04/Aug/26 7:32 PM,06/Aug/26 12:00 AM
+Story,KAN-7,10015,Write Requirements Specification Document,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:33 PM,04/Aug/26 7:49 PM,
+Story,KAN-8,10016,Write Solution Design Document,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:33 PM,04/Aug/26 7:49 PM,
+Story,KAN-9,10017,Create DB Schema Design Document,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:34 PM,04/Aug/26 7:49 PM,
+Story,KAN-14,10022,Implement Patients cleansing module,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:39 PM,04/Aug/26 7:49 PM,
+Story,KAN-16,10024,Implement Claims cleansing module,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:40 PM,04/Aug/26 7:49 PM,
+Story,KAN-15,10023,Implement Subscribers cleansing module,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:39 PM,04/Aug/26 7:49 PM,
+Story,KAN-22,10030,Write test cases for each use case (xls test sheet),,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:42 PM,04/Aug/26 7:49 PM,
+Story,KAN-20,10028,Implement and test result generation module,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:42 PM,04/Aug/26 7:49 PM,
+Story,KAN-21,10029,Write unit tests for cleansing modules,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:42 PM,04/Aug/26 7:49 PM,
+Story,KAN-23,10031,End-to-end pipeline integration test on Databricks,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:42 PM,04/Aug/26 7:49 PM,
+Story,KAN-17,10025,Implement Group_Subgroup cleansing module,,,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Done,Done,04/Aug/26 7:40 PM,04/Aug/26 7:49 PM,
+Epic,KAN-13,10021,Data Cleaning,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,To Do,,04/Aug/26 7:38 PM,04/Aug/26 7:49 PM,06/Aug/26 12:00 AM
+Epic,KAN-18,10026,Use Case Implementation,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Idea,,04/Aug/26 7:41 PM,04/Aug/26 7:41 PM,06/Aug/26 12:00 AM
+Epic,KAN-19,10027,Testing,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Sunil Thapa,712020:d242aa7f-1fa5-4f43-98c2-b7fe38429ef2,Medium,Idea,,04/Aug/26 7:41 PM,04/Aug/26 7:41 PM,06/Aug/26 12:00 AM

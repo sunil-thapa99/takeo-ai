@@ -2,5 +2,6 @@ books.json
 .DS_Store
 *.pyc
 aws/.env
+capstone/.env
 aws/project/testing_standardized
 *.zip
