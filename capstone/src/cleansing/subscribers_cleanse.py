@@ -15,7 +15,7 @@ def main():
     df = spark.read.csv(S3, header=True, inferSchema=True)
 
     # Strip cols
-    df = strip_col(df)
+    df = df.withColumnRenamed("sub _id", "sub_id")
 
     # Lower case all the columns to match redshift columns
     df = lowercase_col(df)
@@ -35,5 +35,5 @@ def main():
     spark.stop()
 
 if __name__ == '__main__':
-    # spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/subscribers_cleanse.py
+    # spark-submit --jars ~/redshift-jdbc42-2.1.0.9.jar --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/subscribers_cleanse.py
     main()

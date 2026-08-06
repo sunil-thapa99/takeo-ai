@@ -30,7 +30,3 @@ def create_schema(columns: dict):
 # Rename to lower-case
 def lowercase_col(df: DataFrame):
     return df.toDF(*[col.lower() for col in df.columns])
-
-# strip space on column name
-def strip_col(df: DataFrame):
-    return df.toDF(*[col.strip() for col in df.columns])

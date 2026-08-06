@@ -40,5 +40,5 @@ def main():
     spark.stop()
 
 if __name__ == '__main__':
-    # spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/patients_cleanse.py
+    # spark-submit --jars ~/redshift-jdbc42-2.1.0.9.jar --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/patients_cleanse.py
     main()

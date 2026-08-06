@@ -19,7 +19,7 @@ def read_from_redshift(spark, table: str):
             .option("dbtable", table)
 
 def write_to_redshift(df, table: str, mode: str="overwrite"):
-    df.write.format()("jdbc").option("url", REDSHIFT_URL)\
+    df.write.format("jdbc").option("url", REDSHIFT_URL)\
             .option("user", USERNAME) \
             .option("password", PASSWORD) \
             .option("driver", REDSHIFT_DRIVER)\
