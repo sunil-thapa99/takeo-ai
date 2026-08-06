@@ -7,7 +7,7 @@ from utils.utils import *
 
 from pyspark.sql import functions as F
 
-S3 = "s3a://st-capstone-takeo-project/data/grpsubgrp"
+S3 = "s3a://st-capstone-takeo-project/data/disease"
 
 def main():
     spark = get_spark_session()
@@ -21,11 +21,11 @@ def main():
     df = fill_na(df)
 
     # drop duplicates
-    df = drop_duplicates(df, ["subgrp_id", "grp_id"])
+    df = drop_duplicates(df, ["disease_id"])
 
-    write_to_redshift(df, "cleaned_data.grpsubgrp")
+    write_to_redshift(df, "cleaned_data.disease")
     spark.stop()
 
 if __name__ == '__main__':
-    # spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/group_subgroup_cleanse.py
+    # spark-submit --packages org.apache.hadoop:hadoop-aws:3.3.4 cleansing/disease_cleanse.py
     main()
